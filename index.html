@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>James & Chou6 Wedding</title>
+    <!-- Tailwind CSS & Google Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+	
+	<!-- 🌟 社群分享預覽設定 (LINE / FB 預覽卡片資訊) -->
+    <meta property="og:title" content="James & Chou6 Wedding Day">
+    <meta property="og:description" content="Here we goooooooo~">
+    <meta property="og:image" content="https://chou6-james-weddingday-0131.vercel.app/images/link.jpg"> 
+    <meta property="og:type" content="website">
+	
+	<style>
+        html, body {
+            font-family: 'Noto Serif TC', serif;
+            /* 背景：復古紙張紋理與斑駁感的奶茶色背景 */
+            background-color: #E8E0D5;
+            background-image: 
+			linear-gradient(rgba(239, 236, 230, 0.6), rgba(239, 236, 230, 0.6)),
+			url('images/fabric-bg.jpg'); 
+            background-repeat: repeat;
+            background-attachment: fixed; 
+            color: #4A4543;
+            overflow-x: hidden;
+			/* 💡 加上這行，一開始進站時強制鎖定上下滾動，不讓背景亂跑！ */
+			overflow: hidden;
+        }
+        .font-english {
+            font-family: 'Playfair Display', serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #C5A880 0%, #D4AF37 50%, #B8860B 100%);
+            -webkit-background-clip: text;
+            background-clip: text; /* 加上標準屬性，消除警告 */
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 飄泡泡特效樣式 */
+        .bubbles-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .bubble {
+            position: fixed;
+            bottom: -50px;
+            background: rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+            animation: rise 8s infinite ease-in;
+        }
+		/* 飄愛心特效樣式  */
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 18px;
+            color: rgba(197, 168, 128, 0.5); /* 柔和的高級香檳金色 */
+            animation: rise-heart 8.5s infinite ease-in;
+            user-select: none;
+        }
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(0.8);
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.15;
+            }
+            100% {
+                transform: translateY(-105vh) scale(1.3);
+                opacity: 0;
+            }
+        }
+		@keyframes rise-heart {
+            0% {
+                transform: translateY(0) scale(0.6) rotate(0deg);
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.25;
+            }
+            100% {
+                transform: translateY(-105vh) scale(1.2) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        /* 迎賓遮罩特效 */
+        #welcome-overlay {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+		
+		/* 🌟 背景輪播淡入淡出特效 */
+        .hero-bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 0;
+        }
+        .hero-bg-slide.active {
+            opacity: 1;
+        }
+		
+		#wedding-book {
+			box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45), 0 0 40px rgba(0, 0, 0, 0.1);
+		}
+		.page {
+			background-color: #ffffff;
+		}
+		.page::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			pointer-events: none;
+			background: linear-gradient(90deg, rgba(0,0,0,0.06) 0%, transparent 8%, transparent 92%, rgba(0,0,0,0.06) 100%);
+		}
+		
+
+		/* 1. 徹底清除 page-flip 套件本身產生的所有預設背景色與邊框 */
+		.stf__wrapper, 
+		.stf__block, 
+		.stf__item,
+		.page {
+			background-color: transparent !important;
+			background: transparent !important;
+			border: none !important;
+			box-shadow: none !important;
+		}
+
+		/* 2. 確保翻書本體的 Canvas 渲染範圍也是透明的 */
+		canvas {
+			background-color: transparent !important;
+		}
+
+		/* 3. 讓寫真照片完美填滿頁面，不留多餘空隙 */
+		.page img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+        /* 🌟 強制清除 St.PageFlip 套件產生的預設半透明背景與陰影框 */
+        #wedding-book, 
+        .stf__wrapper, 
+        .stf__parent,
+        .page {
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+
+        body {
+        -webkit-touch-callout: none; /* 封鎖 iOS Safari 長按彈出選單 */
+        -webkit-user-select: none;   /* 封鎖文字/圖片選取 */
+        user-select: none;
+        }
+		
+        /* 🧹 強制清除 StPageFlip 套件在手機版產生的預設白邊、背景與陰影 */
+        #mobile-book-container canvas,
+        #mobile-book-container .stf__wrapper,
+        #mobile-book-container .stf__parent {
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }       
+
+        /* 確保翻頁過程中的頁面也是透明底 */
+        #mobile-book-container .page {
+            background-color: transparent !important;
+        }
+
+        /* 🧹 強制清除 StPageFlip 套件產生的所有白底與容器框線 */
+        #mobile-book-container,
+        #mobile-book-container .stf__wrapper,
+        #mobile-book-container .stf__parent,
+        #mobile-book-container canvas {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        /* 讓每一頁（含翻轉中與背面的頁面）的背景都變成透明 */
+        #mobile-book-container .page,
+        .stf__item {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+
+        /* 🔒 強制鎖定手機觸控，讓這個區塊專心處理左右翻頁，防止被判定成上下捲動網頁 */
+        #flipbook-section-mobile,
+        #mobile-book-container {
+            touch-action: pan-y; /* 允許垂直微幅滾動，但優先支援水平手勢 */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 如果希望在書本範圍內完全不受上下滑動干擾，也可以直接用下面這行： */
+        #mobile-book-container {
+            touch-action: none; 
+        }       
+		
+
+        
+
+        /* 當欄位未填且嘗試送出時，賦予醒目的紅框與微幅震動 */
+        input:invalid:not(:placeholder-shown), 
+        select:invalid {
+            border-color: #e53e3e !important;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
+        }
+</style>
+        
+    </style>
+</head>
+<body class="antialiased relative min-h-screen">
+
+<!-- 載入中的 Loading 轉圈圈遮罩  -->
+    <div id="page-loader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#2C2A29] text-white transition-opacity duration-700 pointer-events-auto">
+        <div class="w-12 h-12 border-4 border-[#C5A880] border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="font-english tracking-[0.25em] text-sm text-[#E5D5C5]">Loading Our Love Story...</p>
+    </div>
+    <div class="global-bubbles-container" style="height: 100%; position: fixed;">
+        <div class="bubble" style="left: 5%; width: 22px; height: 22px; animation-duration: 10s; animation-delay: 0s;"></div>
+        <div class="floating-heart" style="left: 12%; animation-duration: 13s; animation-delay: 2s;">♥</div>
+        <div class="bubble" style="left: 20%; width: 32px; height: 32px; animation-duration: 14s; animation-delay: 4s;"></div>
+        <div class="floating-heart" style="left: 28%; animation-duration: 11s; animation-delay: 1s;">♥</div>
+        <div class="bubble" style="left: 38%; width: 16px; height: 16px; animation-duration: 9s; animation-delay: 3s;"></div>
+        <div class="floating-heart" style="left: 48%; animation-duration: 15s; animation-delay: 5s;">♥</div>
+        <div class="bubble" style="left: 58%; width: 26px; height: 26px; animation-duration: 12s; animation-delay: 1.5s;"></div>
+        <div class="floating-heart" style="left: 68%; animation-duration: 10.5s; animation-delay: 3.5s;">♥</div>
+        <div class="bubble" style="left: 78%; width: 20px; height: 20px; animation-duration: 13.5s; animation-delay: 2.5s;"></div>
+        <div class="floating-heart" style="left: 88%; animation-duration: 12s; animation-delay: 0.5s;">♥</div>
+        <div class="bubble" style="left: 95%; width: 28px; height: 28px; animation-duration: 11s; animation-delay: 4.5s;"></div>
+    </div>
+
+
+
+
+<!-- 0. 迎賓開場遮罩  -->
+    <div id="welcome-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-[#2B2624]/90 backdrop-blur-md p-4 transition-opacity duration-800">
+        
+        <div class="relative max-w-md w-full mx-4 text-center">
+            
+            <!-- 1. 彈跳文字-->
+            <div id="welcomePrompt" class="absolute left-0 right-0 z-40 text-center select-none pointer-events-none transition-opacity duration-300" style="bottom: 55%;">
+                <p class="text-sm md:text-base font-english tracking-[0.25em] text-[#E5D5C5] mb-2 drop-shadow-md">
+                    ✨ 點擊中間封蠟打開信封 ✨
+                </p>
+                <div class="w-8 h-8 mx-auto rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white animate-bounce shadow-lg">
+                    ↓
+                </div>
+            </div>
+		
+            <!-- 未拆信封底圖 -->
+            <img id="envelopeClosedImg" src="images/envelope-closed.png" alt="喜帖信封" class="w-full h-auto block object-contain">
+
+            <!-- 獨立疊加在信封上的封蠟按鈕 -->
+            <div id="waxSealBtn" onclick="triggerWaxSeal(this)" 
+                 class="absolute top-[68%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-20 h-20 cursor-pointer group flex items-center justify-center" 
+                 title="點擊封蠟開啟邀請函">
+                
+                <!-- 預設顯示的第一個封蠟圖片 -->
+                <img id="waxSealImg" src="images/stamp.png" alt="封蠟章" class="w-16 h-16 object-contain drop-shadow-lg transition-transform duration-300 group-hover:scale-110">
+            </div>	
+			
+        </div>
+    </div>
+
+
+
+
+
+<!-- 1. 頂部懸浮導覽列 -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-[#E8E0D5]/90 backdrop-blur-md border-b border-[#D4C5B3] px-6 py-4 flex justify-between items-center">
+        <!-- 專屬圖片 Logo -->
+        <a href="#" class="flex items-center">
+            <img src="images/logo.png" alt="Logo" class="h-8 md:h-12 w-auto object-contain drop-shadow-sm transition-transform duration-300 hover:scale-105">
+        </a>
+        <div class="hidden md:flex space-x-8 text-sm tracking-wider text-[#665C58]">
+            <a href="#hero" class="hover:text-[#C5A880] font-serif transition">Home</a>
+            <a href="#story" class="hover:text-[#C5A880] font-serif transition">Love Story</a>
+			<a href="#flipbook" class="hover:text-[#C5A880] font-serif transition">Captured Moments</a>
+            <a href="#dresscode" class="hover:text-[#C5A880] font-serif transition">Wedding Day</a>
+            <a href="#details" class="hover:text-[#C5A880] font-serif transition">Wedding Location</a>
+            <a href="#rsvp" class="hover:text-[#C5A880] font-serif transition">RSVP</a>
+        </div>
+        <button id="audioBtn" onclick="toggleAudio()" class="text-xs px-3 py-1.5 border border-[#C5A880] text-[#C5A880] font-serif rounded-full hover:bg-[#C5A880] hover:text-white transition">
+            🎵 播放音樂
+        </button>
+    </nav>
+
+    <!-- 背景音樂音源 -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+
+
+
+
+<!-- 2. 頂部主視覺 (Hero) -輪播背景 -->
+    <header id="hero" class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 overflow-hidden">
+        
+        <!-- 🌟 動態輪播背景圖層 -->
+		<div class="hero-bg-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('images/home-1.jpg'); background-position: 67% center;"></div>
+		<div class="hero-bg-slide" style="background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('images/home-2.jpg'); background-position: 40% center;"></div>
+        <div class="hero-bg-slide" style="background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('images/home-3.jpg'); background-position: 43.5% center;"></div>
+        <div class="hero-bg-slide" style="background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('images/home-4.jpg'); background-position: 55% center;"></div>
+		
+        <div class="bubbles-container">
+            <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+            <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+            <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+            <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+            <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+            <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+            <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+            <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+            <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+            <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+        </div>
+
+		<div class="relative z-10 max-w-2xl mx-auto space-y-8 text-white mt-20 md:mt-24 px-4">
+            
+            <!-- 上方英文小標題：增加字體間距 -->
+            <p class="font-english tracking-[0.4em] text-sm md:text-base uppercase text-[#E5D5C5] drop-shadow-sm">
+                The Wedding Invitation
+            </p>
+            
+			<!-- 📱 手機版專用：用 style 屬性強制放大寬度 (例如 120%) 並往下推 -->
+            <div class="block md:hidden text-center" style="margin-top: 35px; margin-bottom: 20px;">
+                <img src="images/well.png" alt="James & Chou6" style="width: 120%; max-width: none; margin-left: -10%; height: auto; display: inline-block; filter: drop-shadow(0 10px 8px rgba(0,0,0,0.15));">
+            </div>
+
+            <!-- 💻 電腦版專用：維持原本的大小與邊距 (完全不變動) -->
+            <div class="hidden md:block max-w-4xl mx-auto my-2 px-4">
+                <img src="images/well.png" alt="James & Chou6" class="w-full h-auto object-contain drop-shadow-lg">
+            </div>
+            
+            <!-- 金色精緻分隔線 -->
+            <div class="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto"></div>
+            
+            <!-- 日期與邀請感性文字：優化行距與字體大小 -->
+            <div class="space-y-3 text-gray-100 drop-shadow-md">
+                <p class="font-english tracking-[0.2em] text-xl md:text-2xl text-[#E5D5C5] font-medium">2027.01.31</p>
+				<div class="text-sm md:text-base tracking-widest leading-relaxed text-gray-200 space-y-3 font-serif">
+                    <div class="h-4"></div>
+					<p>每一位收到這份邀請的你 / 妳</p>
+                    <p>都是我們人生旅途中最重要的風景</p>
+                    <p>感謝一路相伴的愛與關懷</p>
+                    <p>我們的幸福，想與你一起見證！</p>
+                </div>
+            </div>
+            
+            <!-- 倒數計時器維持原樣 -->
+            <div id="countdown" class="grid grid-cols-4 gap-3 max-w-md mx-auto pt-4 text-[#4A4543]">
+                <div class="bg-[#F5EFE6]/95 backdrop-blur p-3 rounded shadow-sm border border-[#D4C5B3]">
+                    <span id="days" class="text-2xl font-serif font-serif text-[#C5A880]">00</span>
+                    <p class="text-xs text-gray-500 mt-1 font-serif">天</p>
+                </div>
+                <div class="bg-[#F5EFE6]/95 backdrop-blur p-3 rounded shadow-sm border border-[#D4C5B3]">
+                    <span id="hours" class="text-2xl font-serif text-[#C5A880]">00</span>
+                    <p class="text-xs text-gray-500 mt-1 font-serif">時</p>
+                </div>
+                <div class="bg-[#F5EFE6]/95 backdrop-blur p-3 rounded shadow-sm border border-[#D4C5B3]">
+                    <span id="minutes" class="text-2xl font-serif font-serif text-[#C5A880]">00</span>
+                    <p class="text-xs text-gray-500 mt-1 font-serif">分</p>
+                </div>
+                <div class="bg-[#F5EFE6]/95 backdrop-blur p-3 rounded shadow-sm border border-[#D4C5B3]">
+                    <span id="seconds" class="text-2xl font-serif font-serif text-[#C5A880]">00</span>
+                    <p class="text-xs text-gray-500 mt-1 font-serif">秒</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+
+<!-- 3. love story我們的故事 -->
+    <section id="story" class="relative bg-repeat overflow-hidden border-t border-[#D4C5B3]" style="background-image: url('images/bg.jpg'); background-size: 400px; background-position: center;">
+        <div class="bubbles-container">
+            <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+            <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+            <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+            <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+            <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+            <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+            <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+            <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+            <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+            <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+        </div>
+
+        <!-- 🌟 左右雙欄滿版容器 (items-stretch 確保左右兩側高度一致) -->
+        <div class="relative z-20 grid grid-cols-1 lg:grid-cols-2 w-full items-stretch">          
+			<!--左側文字-->
+            <div class="flex flex-col justify-start px-8 md:px-20 py-10 max-w-2xl mx-auto w-full space-y-6">
+			<div class="h-0 md:h-20"></div>
+                <div>
+                    <img src="images/love story.png" alt="Our Story 標題" class="h-12 md:h-20 w-auto object-contain">
+                </div>
+                <div class="w-24 h-[3px] bg-[#D4AF37]" style="mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);"></div>
+				<div class="text-gray-700 leading-relaxed text-base md:text-xl space-y-3 font-serif">
+                    <p>從相識、相知到相惜</p>
+					<p>在彼此餘生找到最安穩的避風港</p>
+                    <p>走遍四季風景，最美不是沿途，而是身旁有你</p>
+                   
+					<div class="h-8"></div>
+                    <p>謝謝你</p>
+					<p>把所有的喜歡，都落實成餘生的溫柔</p>
+					
+                </div>
+                <p class="text-gray-600 leading-relaxed text-sm italic font-serif">
+                    <span>「遇見你，是最美的意外；而餘生，都是你。」</span>
+                </p>
+												
+            </div>
+
+            <!-- 右側：直式寫真滿版區塊 -->
+            <div class="relative w-full min-h-[500px] lg:min-h-[580px] overflow-hidden cursor-pointer group" onclick="openLightbox(this)">
+                <!-- 💻 滿版直式寫真 -->
+                <img src="images/1.jpg" alt="我們的故事直式婚紗照" class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-700">
+            </div>
+			
+        </div>
+    </section>
+
+
+
+
+<!-- 4. 沈浸式背景大圖跨兩區塊 (手機與電腦分開顯示) -->
+
+    <!-- 💻 電腦版專用區塊 (一般螢幕維持置中，超寬螢幕讓背景往下微調顯示) -->
+    <section class="hidden lg:flex relative min-h-[110vh] md:min-h-[130vh] flex-col items-center justify-center text-center px-6 py-24 overflow-hidden bg-cover bg-center bg-fixed 2xl:bg-[center_25%]" style="background-image: url('images/2.jpg');">
+        
+        <!-- 半透明深色遮罩 -->
+        <div class="absolute inset-0 bg-black/35 z-0"></div>
+
+        <!-- 泡泡與愛心漂浮特效 -->
+        <div class="bubbles-container z-10">
+            <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+            <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+            <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+            <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+            <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+            <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+            <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+            <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+            <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+            <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+        </div>
+
+        <!-- 文字內容 -->
+        <div class="relative z-20 max-w-3xl mx-auto space-y-6 text-white my-auto">
+            <p class="text-xs md:text-sm tracking-[0.4em] uppercase text-[#D4AF37] font-medium">A Journey of Us</p>
+            <h3 class="text-3xl md:text-2xl font-serif italic leading-relaxed text-gray-100 drop-shadow-md">
+                "When one sees something especially wonderful,<br>it's always nice to have someone to share it with."
+            </h3>
+            <div class="w-16 h-[1px] bg-[#D4AF37] mx-auto mt-6"></div>
+            <p class="text-sm md:text-base tracking-widest text-gray-200 pt-2 font-serif">
+                每一刻的停留，都是未來最珍貴的感動
+            </p>
+        </div>
+    </section>
+
+    <!-- 📱 手機版專用：背景滿版 100vh 絕不露黑邊 + 文字從照片底部起跑往上滑動 -->
+    <section class="flex lg:hidden relative w-full h-[85vh] flex-col items-center justify-center text-center px-6 overflow-hidden bg-[#2C2A29]">
+        
+        <!-- 🌟 1. 滿版背景寫真 (固定 100vh 填滿畫面，絕對沒有黑色多餘空隙) -->
+        <div class="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+            <div class="sticky top-0 w-full h-full">
+                <img src="images/5.jpg" alt="滿版背景寫真" class="w-full h-full object-cover object-top">
+                <!-- 柔和的深色遮罩 -->
+                <div class="absolute inset-0 bg-black/40"></div>
+            </div>
+        </div>
+
+        <!-- 🌟 2. 泡泡與愛心漂浮特效 -->
+        <div class="bubbles-container z-10" data-speed="-0.15">
+            <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+            <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+            <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+            <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+            <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+            <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+            <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+            <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+            <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+            <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+        </div>
+
+        <!-- 🌟 3. 質感文字內容 (透過 absolute bottom-12 讓文字一開始穩穩停在照片最底部，隨著捲動往上滑動) -->
+        <div class="absolute bottom-12 inset-x-6 z-20 max-w-3xl mx-auto space-y-6 text-white" data-speed="-0.4">
+            <p class="text-xs tracking-[0.4em] uppercase text-[#D4AF37] font-medium">A Journey of Us</p>
+            <h3 class="text-xl font-serif italic leading-relaxed text-gray-100 drop-shadow-md">
+                "When one sees something especially wonderful,it's always nice to have someone to share it with."
+            </h3>
+            <div class="w-16 h-[1.5px] bg-[#D4AF37] mx-auto mt-6"></div>
+            <p class="text-sm tracking-widest text-gray-200 pt-2 font-serif">
+                每一刻的停留，都是未來最珍貴的感動
+            </p>
+        </div>
+    </section>
+
+
+
+<!-- 5. 四格相片藝廊 (電腦版專用：維持原本精緻的 2x2 四格網格) -->
+    <section class="hidden md:grid relative py-24 px-6 md:px-16 overflow-hidden" style="background-image: url('images/bg.png'); background-repeat: repeat;">
+    
+        <!-- 內層最大容器 -->
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 items-start">
+            
+                <!-- 1️⃣ 左上格 (Top-Left)：放文字與小標題 -->
+                <div class="flex flex-col items-center justify-center text-center p-8 md:p-12 h-full">
+                    <p class="text-left font-serif text-gray-600 text-sm md:text-base leading-relaxed">
+                        每一個眼神交會、每一次相視而笑<br>
+                        都是我們寫給彼此最浪漫的情詩
+                    </p>
+                </div>
+
+                <!-- 2️⃣ 右上格的第一張照片 -->
+                <div class="w-full max-w-xl overflow-hidden shadow-xl cursor-pointer group" onclick="openLightbox(this)">
+                    <div class="w-full h-80 md:h-[420px] overflow-hidden">
+                        <img src="images/10.jpg" alt="婚紗照 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                </div>
+
+                <!-- 3️⃣ 左下格 (Bottom-Left)：第二張照片 -->
+                <div class="flex justify-end items-start p-0">
+                    <div class="w-full max-w-xl overflow-hidden shadow-xl cursor-pointer group" onclick="openLightbox(this)">
+                        <div class="w-full h-80 md:h-[420px] overflow-hidden">
+                            <img src="images/3.jpg" alt="婚紗照 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4️⃣ 右下格 (Bottom-Right)：空白留白格 -->
+                <div class="flex flex-col items-center justify-center text-center p-8 h-full">
+                    <div class="text-left font-serif text-gray-600 text-sm md:text-base leading-relaxed tracking-wider">
+                        <p>愛，是與對的人</p>
+                        <p>把日子過成最甜的詩</p>
+                    </div>
+                </div>
+
+            </div>
+        
+        
+        
+    </div>
+
+    </section>
+
+
+<!-- 📱 5-1. 手機版專用藝廊 (使用手動合成圖，點擊彈出乾淨原圖) -->
+<section class="block md:hidden relative py-12 px-6 overflow-hidden" style="background-image: url('images/bg.png'); background-repeat: repeat;">
+    <div class="max-w-md mx-auto space-y-8">
+        
+        <!-- 手機版第一段文字 -->
+        <div class="text-right">
+            <p class="font-serif text-gray-700 text-sm leading-relaxed">
+                每一個眼神交會，每一次相視而笑<br>
+                都是我們寫給彼此最浪漫的情詩
+            </p>
+        </div>
+
+        <!-- 🌟 第一張：合成圖 (無陰影、乾淨俐落) -->
+        <div class="w-full max-w-[350px] mx-auto overflow-hidden cursor-pointer group" onclick="openLightbox(this)" data-full="images/10.jpg">
+            <img src="images/10-card.png" alt="婚紗照 2" class="w-full h-auto object-cover group-hover:scale-105 transition duration-500">
+        </div>
+
+        <!-- 靠左對齊的文字與金色短線 -->
+        <div class="flex items-center justify-start space-x-3">
+            <span class="font-serif text-gray-800 text-sm italic">「 鬧著、笑著，就是一輩子 」</span>
+            <span class="inline-block w-12 h-[2px] bg-[#D4AF37]"></span>
+        </div>
+
+        <!-- 🌟 第二張：合成圖 (無陰影、乾淨俐落) -->
+        <div class="w-full max-w-[350px] mx-auto overflow-hidden cursor-pointer group" onclick="openLightbox(this)" data-full="images/3.jpg">
+            <img src="images/3-card.png" alt="婚紗照 1" class="w-full h-auto object-cover group-hover:scale-105 transition duration-500">
+        </div>
+
+        <!-- 手機版第二段文字 -->
+        <div class="text-left">
+            <div class="font-serif text-gray-700 text-sm leading-relaxed tracking-wider space-y-1">
+                <p>愛，是與對的人</p>
+                <p>把日子過成最甜的詩。</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+    <!-- 🌟 點擊放大彈跳視窗 (Lightbox Modal - 電腦與手機共用) -->
+    <div id="myLightbox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 99999; justify-content: center; align-items: center;" onclick="closeLightbox()">
+        <div style="position: relative; max-width: 90%; max-height: 90%;" onclick="event.stopPropagation()">
+            <!-- 關閉按鈕 -->
+            <span onclick="closeLightbox()" style="position: absolute; top: -40px; right: 0; color: white; font-size: 40px; cursor: pointer; font-weight: bold;">&times;</span>
+            <!-- 放大後的圖片 -->
+            <img id="lightboxImage" src="" style="max-width: 100%; max-height: 85vh; display: block; margin: auto; border-radius: 8px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+        </div>
+    </div>
+
+
+        <div id="flipbook" class="w-full flex flex-col items-center justify-center pt-10 pb-8">
+         <img  src="images/booklogo.png" alt="Love Story" class="h-12 md:h-20 w-auto object-contain drop-shadow-sm">
+         <div class="h-5 md:h-5"></div>   
+         <div class="w-24 h-[3px] bg-[#D4AF37]" style="mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);"></div>
+        </div>
+        <!-- 💡 2️⃣ 新增：點擊翻頁提示文字 (優雅精緻的小標題) -->
+        <div class="w-full text-center pt-2 pb-4 z-30">
+            <p class="font-serif text-gray-500 text-xs md:text-sm tracking-[0.3em] uppercase">
+            ✦ 滑動書本角落或點擊畫面左右兩側即可翻頁 ✦
+            <br>上下滑動要書本外位置哦
+            </p>
+        </div>
+
+
+	
+<!-- 6. 視差滾動左上右下照片區塊  
+	<section id="parallax-section" class="relative min-h-[140vh] px-6 py-24 overflow-hidden flex items-center justify-center" style="background-image: url('images/12.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
+		
+		半透明深色遮罩 
+		<div class="absolute inset-0 bg-black/35 z-0"></div>
+	
+		 泡泡與愛心漂浮特效 
+		<div class="bubbles-container z-10">
+        <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+        <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+        <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+        <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+        <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+        <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+        <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+        <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+        <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+        <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+        <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+    </div>
+
+     🌟 左右兩側相片方塊 
+    <div class="relative z-25 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        左側方形照片 1 
+        <div class="lg:col-span-4 flex justify-center" style="transform: translateY(-180px);">
+            <div class="w-full aspect-square bg-black/20 border-[4px] border-[#E8E0D5] shadow-2xl overflow-hidden group brightness-90 cursor-pointer" onclick="openLightbox(this)">
+                <img src="images/13.jpg" alt="生活照 1" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.onerror=null;">
+            </div>
+        </div>
+
+       中間空欄 
+        <div class="hidden lg:block lg:col-span-4"></div>
+
+        右側方形照片 2 
+        <div class="lg:col-span-4 flex justify-center" style="transform: translateY(180px);">
+            <div class="w-full aspect-square bg-black/20 border-[4px] border-[#E8E0D5] shadow-2xl overflow-hidden group brightness-90 cursor-pointer" onclick="openLightbox(this)">
+                <img src="images/15.jpg" alt="生活照 2" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" style="object-position: center 45%;" onerror="this.onerror=null;">
+            </div>
+        </div>
+
+    </div>
+</section> -->
+
+
+
+
+
+
+<!-- 7.婚紗相簿 -->
+
+<!-- 電腦大螢幕：雙頁 3D 翻書區塊（螢幕寬度 >= 1024px 顯示 -->
+    <section id="flipbook-section-desktop" class="relative pt-0 pb-4 px-4 overflow-hidden bg-transparent w-full hidden md:flex flex-col items-center justify-center">
+    
+        <!-- 📖 核心基準容器 -->
+        <div class="relative w-full max-w-6xl mx-auto flex items-center justify-center">
+    
+            <!-- 📖 內層等比縮放容器 -->
+            <div class="relative w-full aspect-[4320/3240] flex items-center justify-center">
+
+                <!-- 📖 底層：實體書本底圖 -->
+                <img src="images/book-bg.png" alt="書本底圖" class="absolute inset-0 w-full h-full object-contain pointer-events-none select-none">
+
+                <!-- 📖 中層：3D 翻書本體 -->
+                <div class="absolute z-30 flex items-center justify-center" style="top: 1.5%; bottom: 3%; left: 4.3%; right: 4.3%;">
+                    <div id="wedding-book" class="w-full h-full shadow-none">
+                
+                        <!-- 內頁 1 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/21.png" alt="回憶照片 1" class="w-full h-full object-cover">
+                        </div>
+        
+                        <!-- 內頁 2 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/27.png" alt="回憶照片 2" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 3 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/22.png" alt="回憶照片 3" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 4 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/23.png" alt="回憶照片 4" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 5 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/33.png" alt="回憶照片 5" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 6 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/24.png" alt="回憶照片 6" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 7 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/26.png" alt="回憶照片 7" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 8 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/29.png" alt="回憶照片 8" class="w-full h-full object-cover">
+                        </div>
+        
+                        <!-- 內頁 9 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/31.png" alt="回憶照片 9" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 內頁 10 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/32.png" alt="回憶照片 10" class="w-full h-full object-cover">
+                        </div>            
+        
+                        <!-- 內頁 11 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/28.png" alt="回憶照片 11" class="w-full h-full object-cover">
+                        </div>
+
+                        <!-- 封底 -->
+                        <div class="page overflow-hidden bg-transparent flex items-center justify-center">
+                            <img src="images/30.png" alt="封底照片" class="w-full h-full object-cover">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 👈 左側點擊按鈕 (電腦版) -->
+        <div onclick="if(window.weddingBookFlip) window.weddingBookFlip.flipPrev();" 
+            class="absolute left-2 lg:left-6 inset-y-0 w-[8%] h-full cursor-pointer flex items-center justify-start pl-2 group transition-all duration-300 hover:bg-black/5 z-40">
+            <div class="w-8 h-8 lg:w-16 lg:h-16 flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                <img src="images/L.png" alt="上一頁" class="w-full h-full object-contain">
+            </div>
+        </div>
+
+        <!-- 👉 右側點擊按鈕 (電腦版) -->
+        <div onclick="if(window.weddingBookFlip) window.weddingBookFlip.flipNext();" 
+            class="absolute right-2 lg:right-6 inset-y-0 w-[8%] h-full cursor-pointer flex items-center justify-end pr-2 group transition-all duration-300 hover:bg-black/5 z-40">
+            <div class="w-8 h-8 lg:w-16 lg:h-16 flex items-center justify-center transform group-hover:scale-110 transition-transform">
+                <img src="images/R.png" alt="下一頁" class="w-full h-full object-contain">
+            </div>
+        </div>
+
+    </section>
+
+
+<!-- ========================================== -->
+<!-- 📱 手機專用：3D 擬真翻書區塊（底圖與動畫完美對齊） -->
+<!-- ========================================== -->
+<section id="flipbook-section-mobile" class="relative pt-0 pb-4 px-0 overflow-hidden bg-transparent w-full flex md:hidden flex-col items-center justify-center">
+    
+    <div class="relative w-full max-w-[350px] mx-auto flex items-center justify-center p-0 bg-transparent"
+         style="touch-action: none;">
+        
+        <!-- 📖 核心基準容器 -->
+        <div class="relative w-full aspect-[2160/3240] flex items-center justify-center">
+
+            <!-- 1. 📖 底層：實體書本底圖（正確補回這一行） -->
+            <img src="images/book-m.png" alt="書本底圖" class="absolute inset-0 w-full h-full object-fill pointer-events-none select-none">
+
+            <!-- 2. 📖 中層：StPageFlip 翻書容器 -->
+            <div class="absolute z-30 flex items-center justify-center" style="top: 0%; bottom: 2%; left: 0%; right: 6%;">
+                <div id="mobile-book-container" class="w-full h-full"></div>
+            </div>
+
+        </div>
+
+    </div>
+       
+
+    </div>
+     <!-- 3. 👈 左側按鈕 -->
+            <div onclick="if(window.mobileBook) window.mobileBook.flipPrev();" 
+                 class="absolute left-1 inset-y-0 w-[8%] h-full cursor-pointer flex items-center justify-start pl-1 group z-50">
+                <div class="w-8 h-8 flex items-center justify-center transform active:scale-95 transition-transform drop-shadow-md">
+                    <img src="images/L-p.png" alt="上一頁" class="w-full h-full object-contain pointer-events-none">
+                </div>
+            </div>
+
+            <!-- 4. 👉 右側按鈕 -->
+            <div onclick="if(window.mobileBook) window.mobileBook.flipNext();" 
+                 class="absolute right-1 inset-y-0 w-[8%] h-full cursor-pointer flex items-center justify-end pr-1 group z-50">
+                <div class="w-8 h-8 flex items-center justify-center transform active:scale-95 transition-transform drop-shadow-md">
+                    <img src="images/R-p.png" alt="下一頁" class="w-full h-full object-contain pointer-events-none">
+                </div>
+            </div>
+</section>
+
+
+
+<!-- 8. 日期小日曆專區 --> 
+    <section id="dresscode" class="relative py-0 md:py-0 w-full overflow-hidden text-center bg-transparent " style="scroll-margin-top: 40px;">
+        <div class="bubbles-container">
+            <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+            <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+            <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+            <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+            <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+            <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+            <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+            <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+            <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+            <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+        </div>
+                
+        <!--手機專用影片區 (完全保持不動) -->
+        <div class="block md:hidden relative left-1/2 -translate-x-1/2 w-screen overflow-hidden bg-transparent my-0">
+            <video 
+                id="calendarVideoMobile"
+                src="images/calendar-mobile.mp4" 
+                autoplay 
+                muted 
+                loop 
+                playsinline 
+                webkit-playsinline 
+                preload="auto"
+                class="w-full min-h-[75vh] h-auto block object-cover">
+                您的瀏覽器不支援影片播放
+            </video>
+        </div>
+
+        <!--電腦專用影片區 (改為左右滿版 w-screen，無圓角與邊框) -->
+        <div class="hidden md:block relative left-1/2 -translate-x-1/2 w-screen overflow-hidden bg-transparent my-0">
+            <video 
+                id="calendarVideoDesktop"
+                src="images/calendar-animation.mp4" 
+                autoplay 
+                muted 
+                loop 
+                playsinline 
+                webkit-playsinline 
+                preload="auto"
+                class="w-full h-auto block object-cover">
+                您的瀏覽器不支援影片播放
+            </video>
+        </div>
+        
+		        <!--獨立的大標題區-->
+        <div class="mb-6 md:mb-10 px-4">
+            <div class="h-8"></div>
+			<div class="h-8"></div>
+			<h2 class="text-2xl md:text-3xl font-normal text-[#5A5046] tracking-[0.25em]" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                2027.01.31
+            </h2>
+			<div class="h-8"></div>
+			<div class="h-8"></div>
+			<h2 class="text-2xl md:text-4xl font-normal text-[#5A5046] tracking-[0.25em]" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+                «好久不見，我們婚禮見»
+            </h2>
+        </div>
+		
+    </section>
+
+
+
+
+
+<!-- 9. 宴客資訊與交通指南 (完美延展、左右平均撐滿畫面不留白) -->
+	<section id="details" class="relative pt-2 pb-24 px-6 md:px-16 overflow-hidden" style="scroll-margin-top: 100px;">
+		<div class="bubbles-container">
+			<div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+			<div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+			<div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+			<div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+			<div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+			<div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+			<div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+			<div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+			<div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+			<div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+			<div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+		</div>
+
+		<!-- 🌟 最大容器改為 w-full，不再被 max-w-7xl 侷限，完美融入寬螢幕 -->
+		<div class="w-full mx-auto relative z-10">
+        
+        <!-- 標題區塊 (將 mb-4 改為 mb-2 讓下方更貼近) -->
+        <div class="text-left mb-2 max-w-7xl mx-auto">                
+            <img src="images/wedding-location.png" alt="交通" class="h-12 md:h-20 w-auto object-contain mb-3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <h2 class="text-3xl md:text-4xl font-serif text-gray-800 tracking-wider mb-3" style="display: none;">交通</h2>
+            <div class="w-24 h-[3px] bg-[#D4AF37]" style="mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);"></div>
+        </div>
+
+        <!-- 左右雙欄配置 (使用 w-full 配合適當內距，讓左右平均撐開) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start max-w-7xl mx-auto">
+            
+            <!-- 左側：交通資訊文字 (佔 5 欄) -->
+            <div class="lg:col-span-5 space-y-6 text-gray-700 font-serif text-base md:text-lg mt-6">
+                
+                <div class="space-y-1">
+				<!-- 飯店名稱 (改到上面) -->
+				<h3 class="text-3xl md:text-4xl font-serif font-bold text-[#7A6B5D] tracking-wide">格萊天漾大飯店</h3>
+				<div class="h-2"></div>
+    
+				<!-- 地標圖示與地址 (改到下面，且圖示在左側、絕對不換行) -->
+				<div class="text-gray-700 text-base md:text-xl flex items-center space-x-2 whitespace-nowrap font-serif">
+					<img src="images/locat.png" alt="地標圖示" class="w-7 h-7 object-contain shrink-0">
+						<span>臺北市萬華區艋舺大道101號14F</span>
+					</div>
+					<div class="h-3"></div>
+				</div>
+
+                <!-- 捷運資訊 -->
+                <div class="space-y-2">
+                    <h4 class="font-serif text-gray-800 flex items-center space-x-2 text-base md:text-xl">
+						<img src="images/MRT.png" alt="捷運圖示" class="w-7 h-7 object-contain shrink-0">
+						<span>搭乘捷運</span>
+					</h4>
+                    <div class="space-y-1 text-gray-700 text-lg md:text-base font-serif pl-10">
+                        <li>板南線 「龍山寺站」 2號出口<br>(步行約 5 分鐘)</li>
+                        <div class="h-2"></div>
+						<li>台鐵 「萬華火車站」 1號出口<br>(出站即到達)</li>
+                    </div>
+					<div class="h-2"></div>
+                </div>
+
+                <!-- 停車資訊 -->
+                <div class="space-y-2">
+                    <h4 class="font-serif text-gray-800 flex items-center space-x-2 text-base md:text-xl">
+                        <img src="images/park.png" alt="停車圖示" class="w-7 h-7 object-contain shrink-0">
+                        <span>特約停車</span>
+                    </h4>
+                    <div class="space-y-1 text-gray-700 text-lg md:text-base font-serif pl-10">
+                        <li>萬華車站地下停車場 (限高2.1米)</li>
+						<li>凱達立體停車塔 (限高1.8米)</li>
+						<li>莒光社宅地下停車場 (限高2米)</li>
+                    </div>
+					<div class="h-2"></div>
+                </div>
+				
+				 <!-- 開放入場 -->
+                <div class="space-y-2">
+                    <h4 class="font-serif text-gray-800 flex items-center space-x-2 text-base md:text-xl">
+                        <img src="images/time.png" alt="入場時間" class="w-7 h-7 object-contain shrink-0">
+                        <span>宴客時間</span>
+                    </h4>
+
+                    <div class="space-y-1 text-gray-700 text-lg md:text-base font-serif pl-6">
+						
+                        <p class="flex items-center space-x-1">
+						
+							<img src="images/entry.gif" alt="11:15開放入場動畫" class="w-60 h-25 object-contain inline-block align-middle mx-1">
+						</p>
+						<p class="flex items-center space-x-1">
+						
+							<img src="images/start.gif" alt="11:45準時開席動畫" class="w-60 h-25 object-contain inline-block align-middle mx-1">
+						</p>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <!-- 🌟 右側：地圖圖片 (點擊必放大、電腦右鍵儲存、手機長按儲存) -->
+            <div class="lg:col-span-7 w-full pt-12">
+                <div class="w-full overflow-hidden rounded-2xl shadow-xl group">
+                    <div class="w-full h-auto overflow-hidden flex items-center justify-center">
+                        <!-- 縮圖本身保有解鎖設定 -->
+                        <img id="saveable-map" src="images/map.jpg" alt="交通路線指引圖" 
+                            class="w-full h-auto object-contain rounded-2xl cursor-pointer group-hover:scale-105 transition duration-500" 
+                            style="-webkit-touch-callout: default !important; -webkit-user-select: auto !important; user-select: auto !important;"
+                            oncontextmenu="event.stopPropagation();">
+                    </div>       
+                </div>
+                <p class="text-xs text-gray-400 text-center mt-5 font-serif">點擊地圖可放大檢視，電腦可右鍵儲存 / 手機可長按儲存</p>
+    
+                <!-- 開啟 Google 地圖導航按鈕 -->
+                <div class="mt-12 flex justify-center">
+                    <a href="https://maps.google.com/?q=台北市萬華區艋舺大道101號" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 bg-[#8C7A6B] hover:bg-[#746355] text-white text-base tracking-wider rounded-lg shadow-md transition duration-300 space-x-2">
+                        <span>🗺️ 開啟 Google 地圖導航</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+	
+	
+	
+	
+	
+<!-- 10. 線上 RSVP 填寫表單 (電腦版橫式背景 + 手機版直式背景) -->
+    <section id="rsvp" class="relative py-24 px-4 overflow-hidden border-t border-[#D4C5B3]">
+        
+        <!-- 💻 電腦版專用背景圖 -->
+        <div class="hidden md:block absolute inset-0 bg-cover bg-no-repeat z-0" style="background-image: url('images/8.jpg'); background-position: 0% center;"></div>
+
+        <!-- 📱 手機版專用背景圖 -->
+        <div class="block md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat z-0" style="background-image: url('images/9.jpg');"></div>
+
+        <!-- 半透明深色遮罩 -->
+        <div class="absolute inset-0 bg-black/30 z-10"></div>
+    
+        <div class="bubbles-container">
+            <div class="bubble" style="left: 5%; width: 18px; height: 18px; animation-duration: 6s; animation-delay: 0s;"></div>
+            <div class="floating-heart" style="left: 12%; animation-duration: 7s; animation-delay: 0.5s;">♥</div>
+            <div class="bubble" style="left: 22%; width: 28px; height: 28px; animation-duration: 8s; animation-delay: 1.2s;"></div>
+            <div class="floating-heart" style="left: 30%; animation-duration: 6.5s; animation-delay: 2s;">♥</div>
+            <div class="bubble" style="left: 42%; width: 15px; height: 15px; animation-duration: 5.5s; animation-delay: 0.8s;"></div>
+            <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 0.3s;">♥</div>
+            <div class="bubble" style="left: 58%; width: 24px; height: 24px; animation-duration: 7.5s; animation-delay: 1.5s;"></div>
+            <div class="floating-heart" style="left: 68%; animation-duration: 8.2s; animation-delay: 1.8s;">♥</div>
+            <div class="bubble" style="left: 76%; width: 30px; height: 30px; animation-duration: 8.5s; animation-delay: 0.2s;"></div>
+            <div class="floating-heart" style="left: 85%; animation-duration: 7s; animation-delay: 2.5s;">♥</div>
+            <div class="bubble" style="left: 93%; width: 20px; height: 20px; animation-duration: 6.8s; animation-delay: 1s;"></div>
+        </div>
+
+            <!-- 🌟 外層包裝 -->
+            <div class="relative z-20 max-w-5xl mx-auto md:mx-0 w-full flex justify-center md:justify-start pl-0 md:pl-20">
+            
+            <!-- 🌟 表單主容器 -->
+            <div class="w-full max-w-2xl bg-[#F5EFE6]/50 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-2xl border border-[#D4C5B3]">
+            
+            <!-- 🌟 標題與說明文字區塊 -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-serif font-bold mb-2 text-[#7A6B5D] tracking-wide">出席調查表</h2>
+                <p class="text-sm font-medium text-gray-900 tracking-wider">請填寫您的出席意願與需求，以便我們為您安排座位</p>
+                <div class="w-12 h-[2px] bg-[#C5A880] mx-auto mt-4"></div>
+            </div>
+
+                <!-- 表單 google表單連結 -->
+                <form id="rsvpForm" action="https://docs.google.com/forms/d/e/1FAIpQLSepCCaI3O_xpOle8nfOQaWDW2GkJuyDS6R621yE-aD4vI1eIA/formResponse" method="POST" target="hidden_iframe" class="space-y-5 bg-white/70 p-6 md:p-8 rounded-2xl border border-[#D4C5B3]/30 shadow-sm">
+                    
+                    <!-- 1. 姓名 -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-700">您的姓名 / 稱謂：</label>
+                        <input type="text" name="name"  placeholder="例如：王小明" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880]">
+                    </div>
+
+                    <!-- 2. 是否會到場 -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-700">是否會到場見證幸福♥：</label>
+                        <select id="attendanceSelect" name="attendance"  class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880] text-gray-400" onchange="this.classList.remove('text-gray-400'); this.classList.add('text-gray-700'); toggleAttendanceFields(this.value);">
+                            <option value="" disabled selected>請選擇您的出席意願</option>
+                            <option value="去!哪次不去" class="text-gray-700">去!哪次不去</option>
+                            <option value="我準備好了!舞台旁幫我留一桌" class="text-gray-700">我準備好了!舞台旁幫我留一桌</option>
+                            <option value="必須到!西裝禮服已準備好" class="text-gray-700">必須到!西裝禮服已準備好</option>        
+                            <option value="不見不散!遲到罰三杯" class="text-gray-700">不見不散!遲到罰三杯</option>
+                            <option value="不克出席，獻上祝福" class="text-gray-700">不克出席，獻上祝福</option>
+                        </select>
+                    </div>
+
+                    <!-- 3. 出席人數 -->
+                    <div id="field-people" class="transition-all duration-300">
+                        <label class="block text-sm font-medium mb-2 text-gray-700">出席人數：</label>
+                        <select name="peopleCount" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880] text-gray-400" onchange="this.classList.remove('text-gray-400'); this.classList.add('text-gray-700');">
+                            <option value="" disabled selected>請選擇出席人數</option>
+                            <option value="1 位" class="text-gray-700">1 位</option>
+                            <option value="2 位 (1+1)" class="text-gray-700">2 位 (1+1)</option>
+                            <option value="3 位 (1+2)" class="text-gray-700">3 位 (1+2)</option>
+                            <option value="4 位 (1+3)" class="text-gray-700">4 位 (1+3)</option>
+                        </select>
+                    </div>
+
+                    <!-- 4. 兒童座椅 -->
+                    <div id="field-kids" class="transition-all duration-300">
+                        <label class="block text-sm font-medium mb-2 text-gray-700">需要幾張兒童座椅：</label>
+                        <select name="kidsSeat" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880] text-gray-400" onchange="this.classList.remove('text-gray-400'); this.classList.add('text-gray-700');">
+                            <option value="" disabled selected>是否有小可愛一起出席</option>
+                            <option value="0 張" class="text-gray-700">0 張</option>
+                            <option value="1 張" class="text-gray-700">1 張</option>
+                            <option value="2 張" class="text-gray-700">2 張</option>
+                        </select>
+                    </div>
+
+                    <!-- 5. 飲食習慣 -->
+                    <div id="field-diet" class="transition-all duration-300">
+                        <label class="block text-sm font-medium mb-2 text-gray-700">素食需求(個人套餐)：</label>
+                        <select name="diet" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880] text-gray-400" onchange="this.classList.remove('text-gray-400'); this.classList.add('text-gray-700');">
+                            <option value="" disabled selected>請問素食人數</option>
+                            <option value="0 位" class="text-gray-700">0 位</option>
+                            <option value="1 位" class="text-gray-700">1 位</option>
+                            <option value="2 位" class="text-gray-700">2 位</option>
+                            <option value="3 位" class="text-gray-700">3 位</option>
+                            <option value="4 位" class="text-gray-700">4 位</option>
+                        </select>
+                    </div>
+
+                    <!-- 6. 喜帖形式 -->
+                    <div id="field-invitation" class="transition-all duration-300">
+                        <label class="block text-sm font-medium mb-2 text-gray-700">喜帖形式：</label>
+                        <select id="invitationType" name="invitationType" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880] text-gray-400" onchange="this.classList.remove('text-gray-400'); this.classList.add('text-gray-700');">
+                            <option value="" disabled selected>想要哪種形式的喜帖</option>
+                            <option value="美美會動的電子喜帖" class="text-gray-700">美美會動的電子喜帖</option>
+                            <option value="收藏紙本喜帖作紀念" class="text-gray-700">收藏紙本喜帖作紀念</option>
+                        </select>
+                    </div>
+                        
+                    <!-- 7. 寄送地址 -->
+                    <div id="addressBox" class="hidden transition-all duration-300">
+                        <label class="block text-sm font-medium mb-2 text-gray-700">寄送地址：</label>
+                        <textarea name="address" rows="3" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880]" placeholder="請留下紙本喜帖寄送地址...."></textarea>
+                    </div>          
+
+                   <!-- 8. 與新人的關係 (已設為必填) -->
+                    <div id="field-relation" class="transition-all duration-300">
+                        <label class="block text-sm font-medium mb-2 text-gray-700">您與新人的關係：</label>
+                        <select name="relation"  class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880] text-gray-400" onchange="this.classList.remove('text-gray-400'); this.classList.add('text-gray-700');">
+                            <option value="" disabled selected>是新娘還是新郎親友呢</option>
+                            <option value="投新娘一票!" class="text-gray-700">投新娘一票!</option>
+                            <option value="這波我挺新郎!" class="text-gray-700">這波我挺新郎!</option>
+                        </select>
+                </div>
+                
+                    <!-- 9. 給新人的祝福語 (保留) -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2 text-gray-700">給新人的祝福語：</label>
+                        <textarea name="wish" rows="3" class="w-full px-4 py-2 border border-[#D4C5B3] bg-white rounded focus:outline-none focus:border-[#C5A880]" placeholder="寫下想對我們說的話..."></textarea>
+                    </div>
+                    
+                    <!-- 送出按鈕 -->
+                    <button type="submit" class="w-full py-3 bg-[#C5A880] text-white hover:bg-[#B8860B] transition duration-300 rounded text-base tracking-widest shadow-sm">
+                        確認送出回覆
+                    </button>
+                </form>
+                
+            <!-- 隱藏的 iframe -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+        
+        </div>
+    </section>
+
+	<!-- 🌟 感謝回覆的彈出視窗 (Modal) -->
+		<div id="thankYouModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm hidden opacity-0 transition-opacity duration-300">
+			<div class="bg-[#F5EFE6] border border-[#D4C5B3] rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-xl transform scale-95 transition-transform duration-300" id="modalContent">
+				<div class="text-3xl mb-3">💌</div>
+				<h3 class="text-xl font-bold text-[#332D2B] mb-2">已收到回覆囉！</h3>
+				<p class="text-sm text-gray-600 mb-6">我們婚禮見 ♥</p>
+				<button type="button" onclick="closeThankYouModal()" class="px-6 py-2.5 bg-[#C5A880] text-white hover:bg-[#B8860B] transition duration-300 rounded text-sm tracking-widest shadow-sm">
+					確定
+				</button>
+			</div>
+		</div>
+	
+
+    <!-- 燈箱 Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="放大照片" class="max-w-full max-h-[90vh] rounded shadow-2xl">
+    </div>
+
+    <!-- 頁尾 -->
+    <footer class="py-8 text-center text-xs text-gray-500 bg-[#E8E0D5] border-t border-[#D4C5B3]">
+        <p>© 2027 James & Six. All Rights Reserved.</p>
+    </footer>
+
+
+
+    <!-- JavaScript 互動功能 -->
+    <script>
+        // 1. 強制回到最上方並鎖定背景滾動
+        window.scrollTo(0, 0);
+        document.documentElement.style.overflow = "hidden";
+        document.body.style.overflow = "hidden";
+
+        const loader = document.getElementById("page-loader");
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // 🌟 2. 偷偷在背景預載多張重要圖片，確保瀏覽完全不閃爍
+        const imagesToPreload = [
+            "images/open.gif",
+            "images/open stamp.gif",
+            "images/home-1.jpg",
+            "images/home-2.jpg",
+            "images/well.png",
+            "images/21.png",
+            "images/22.png",
+            "images/40.png",
+
+        ];
+        imagesToPreload.forEach((url) => {
+            const img = new Image();
+            img.src = url;
+        });
+
+        // 🌟 3. 定義關閉 Loading 遮罩的流暢函式
+        function hideLoader() {
+            if (loader && loader.style.display !== "none") {
+                loader.style.opacity = "0";
+                loader.classList.add("pointer-events-none"); 
+                setTimeout(() => {
+                    loader.style.display = "none";
+                }, 700); // 700毫秒漸層淡出
+            }
+        }
+
+//  4. 強制每次打開網頁都穩穩跑滿 3 秒的 Loading 轉圈圈
+			window.addEventListener("load", () => {
+				setTimeout(hideLoader,10000); 
+        });
+
+        // 🛡️ 安全保險機制：最多 4 秒強制解鎖
+        setTimeout(hideLoader, 6000);
+
+        const bgMusic = document.getElementById("bgMusic");
+        const audioBtn = document.getElementById("audioBtn");
+        let isOpening = false;
+        let isPlaying = false;
+
+        function triggerWaxSeal() {
+            if (isOpening) return;
+            isOpening = true;
+            
+            const waxImg = document.getElementById("waxSealImg");
+            const envelopeImg = document.getElementById("envelopeClosedImg"); 
+            const promptBox = document.getElementById("welcomePrompt");        
+            const overlay = document.getElementById("welcome-overlay");
+            
+            // 點擊瞬間播放音樂
+            if (bgMusic) {
+                bgMusic.muted = false; 
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    audioBtn.innerText = "🔇 暫停音樂";
+                }).catch(err => {
+                    console.log("音樂播放被攔截", err);
+                });
+            }
+            
+            if (promptBox) {
+                promptBox.style.opacity = "0";
+                promptBox.style.display = "none"; 
+            }
+
+            // 1. 切換成打開後的封蠟圖 
+            waxImg.src = "images/open stamp.gif";
+            waxImg.classList.remove("w-28", "h-28");
+            waxImg.classList.add("w-36", "h-36", "scale-125");
+
+            // 2. 封蠟動畫跑完 800 毫秒後切換開信動畫
+            setTimeout(() => {
+                const waxBtn = document.getElementById("waxSealBtn");
+                if (waxBtn) {
+                    waxBtn.style.pointerEvents = "none";
+                    waxBtn.style.display = "none";
+                }
+                if (waxImg) waxImg.style.display = "none";
+                
+                if (envelopeImg) {
+                    envelopeImg.src = "images/open.gif"; 
+                    envelopeImg.style.transition = "none";
+                    
+                    setTimeout(() => {
+                        envelopeImg.style.transition = "transform 0.3s ease";
+                    }, 50);
+                    
+                    const envelopeContainer = envelopeImg.parentElement; 
+                    if (envelopeContainer) {
+                        envelopeContainer.style.backgroundColor = "transparent";
+                        envelopeContainer.classList.remove("shadow-2xl", "rounded-xl");
+                        envelopeContainer.style.boxShadow = "none";
+                    }
+                }
+
+                // 5. 讓開信動畫播放 5 秒後，開始淡出迎賓遮罩
+                setTimeout(() => {
+                    if (overlay) {
+                        overlay.style.opacity = "0";
+                        overlay.style.transform = "scale(1.05)";
+                    }
+                    
+                    // 解鎖主畫面捲動
+                    document.documentElement.style.overflow = "auto";
+                    document.body.style.overflow = "auto";
+        
+                    // 啟動背景輪播
+                    startHeroSlideshow();
+                        
+                    // 6. 等淡出特效跑完（800毫秒後），徹底隱藏遮罩
+                    setTimeout(() => {
+                        if (overlay) {
+                            overlay.style.display = "none";
+                        }
+
+                        bgMusic.play().then(() => {
+                            isPlaying = true;
+                            audioBtn.innerText = "🔇 暫停音樂";
+                        }).catch(err => {
+                            console.log("音樂播放被攔截");
+                        });
+
+                    }, 800); 
+                    
+                }, 5500); 
+                
+            }, 800); 
+        } 
+    
+        function toggleAudio() {
+            if (isPlaying) {
+                bgMusic.pause();
+                audioBtn.innerText = "🎵 播放音樂";
+            } else {
+                bgMusic.play();
+                audioBtn.innerText = "🔇 暫停音樂";
+            }
+            isPlaying = !isPlaying;
+        }
+    
+        // 🌟 背景輪播函式
+        function startHeroSlideshow() {
+            const slides = document.querySelectorAll('.hero-bg-slide');
+            let currentSlide = 0;
+
+            if (slides.length > 0) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 4000); // 每 4 秒切換下一張
+            }
+        }
+
+        const weddingDate = new Date("2027-01-31T12:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<p class='col-span-4 text-center text-lg text-white'>我們已經結婚囉！</p>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function openLightbox(src) {
+            document.getElementById("lightbox-img").src = src;
+            document.getElementById("lightbox").classList.add("flex");
+            document.getElementById("lightbox").classList.remove("hidden");
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox").classList.add("hidden");
+            document.getElementById("lightbox").classList.remove("flex");
+        }
+
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const windowHeight = window.innerHeight;
+
+            sections.forEach((section) => {
+                const rect = section.getBoundingClientRect();
+
+                // 🎯 關鍵微調：設定一個偏移量（例如 100px），讓區塊碰到畫面上緣「再進來一點點」才啟動視差
+                const offset = 30; 
+
+                if (rect.top <= windowHeight - offset && rect.bottom >= offset) {
+                // 計算相對於這個區塊的精準滾動距離（扣掉偏移量讓起跑點更完美）
+                const sectionScrollY = (windowHeight - rect.top) - offset;
+
+                const parallaxElements = section.querySelectorAll('[data-speed]');
+                parallaxElements.forEach((element) => {
+                    const elementMoveSpeed = Number(element.dataset.speed);
+                    element.style.transform = `translateY(${sectionScrollY * elementMoveSpeed}px)`;
+                    });
+                }
+            });
+        });
+
+
+
+    </script>
+	
+	<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRZznSZVshqg5nFGMYXoAIW8z6vHCQUYHcVtqD_BjDtzhpjEmPK0lHglQvK9hPqOwI/exec";
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const selectElement = document.getElementById("invitationType");
+    const addressBox = document.getElementById("addressBox");
+    const form = document.getElementById("rsvpForm");
+
+    // 1. 喜帖形式連動：選擇紙本時顯示地址
+    function toggleAddress() {
+        if (selectElement && selectElement.value === "收藏紙本喜帖作紀念") {
+            addressBox.classList.remove("hidden");
+        } else if (addressBox) {
+            addressBox.classList.add("hidden");
+        }
+    }
+
+    if (selectElement) {
+        selectElement.addEventListener("change", toggleAddress);
+        toggleAddress();
+    }
+
+    // 2. 攔截表單送出：必填驗證 + 紅框提示 + 彈出視窗 + 防連點 Fetch 傳送
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻止頁面跳轉
+
+            // 先清除之前可能留下的紅框與錯誤提示
+            form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            form.querySelectorAll('.error-tip').forEach(el => el.remove());
+
+            // 鎖定三大必填欄位 (姓名、是否出席、與新人的關係)
+            const nameInput = form.querySelector('[name="name"]');
+            const attSelect = form.querySelector('[name="attendance"]');
+            const relationSelect = form.querySelector('[name="relation"]');
+
+            let firstInvalid = null;
+
+            // 檢查姓名
+            if (!nameInput || !nameInput.value.trim()) {
+                showError(nameInput, '⚠️ 請填寫您的姓名哦！');
+                if (!firstInvalid) firstInvalid = nameInput;
+            }
+
+            // 檢查是否出席
+            if (!attSelect || !attSelect.value) {
+                showError(attSelect, '⚠️ 請選擇出席意願哦！');
+                if (!firstInvalid) firstInvalid = attSelect;
+            }
+
+            // 檢查與新人的關係
+            if (!relationSelect || !relationSelect.value) {
+                showError(relationSelect, '⚠️ 請選擇與新人的關係哦！');
+                if (!firstInvalid) firstInvalid = relationSelect;
+            }
+
+            // 🛑 【如果三大必填有任何一個沒填】：聚焦、跳出提示視窗，並用 return 直接中斷，絕對不送出表單！
+            if (firstInvalid) {
+                firstInvalid.focus();
+                showCustomAlert();
+                return; 
+            }
+
+            // --- 🟢 【驗證全部通過】：開始執行防連點與 Fetch 傳送 ---
+            const submitBtn = form.querySelector('button[type="submit"]');
+            
+            // 【防連點機制】如果按鈕已經被禁用，就直接中斷，不重複發送
+            if (submitBtn.disabled) return;
+
+            // 鎖定按鈕，改文字提示正在發送
+            submitBtn.disabled = true;
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "正在傳送祝福...";
+            submitBtn.classList.add("opacity-50", "cursor-not-allowed");
+
+            const formData = new FormData(form);
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    showThankYouModal(); // 彈出感謝視窗
+                    form.reset();        // 清空表單
+                    
+                    // 重置下拉選單顏色
+                    document.querySelectorAll('select').forEach(select => {
+                        select.classList.add('text-gray-400');
+                        select.classList.remove('text-gray-700');
+                    });
+                    
+                    // 收起地址欄位
+                    if (addressBox) addressBox.classList.add("hidden");
+                    // 🌟【在這裡加上這一段】：表單送出成功後，把所有被反灰禁用的欄位全部打開！
+                    const fieldsToToggle = [
+                        document.getElementById('field-people'),
+                        document.getElementById('field-kids'),
+                        document.getElementById('field-diet'),
+                        document.getElementById('field-invitation'),
+                        document.getElementById('addressBox'),
+                        document.getElementById('field-relation')
+                    ];
+                    fieldsToToggle.forEach(el => {
+                    if (el) {
+                        // 1. 移除反灰與禁止點擊效果
+                        el.classList.remove('opacity-40', 'pointer-events-none');
+                        // 2. 解除所有內部欄位的 disabled 限制
+                        const inputs = el.querySelectorAll('input, select, textarea');
+                        inputs.forEach(input => {
+                            input.disabled = false;
+                        });
+                    }
+                });
+                } else {
+                    alert('發送失敗，請確認網路並稍後再試！');
+                }
+            })
+            .catch(error => {
+                console.error('Error!', error);
+                alert('發生網路錯誤，請稍後再試！');
+            })
+            .finally(() => {
+                // 【解除鎖定】無論成功或失敗，把按鈕恢復原狀
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+                submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
+            });
+        });
+    }
+
+    // 輔助函數：幫欄位加上紅框與紅字提示
+    function showError(element, message) {
+        if (!element) return;
+        element.classList.add('is-invalid');
+        
+        let parent = element.parentElement;
+        let existingMsg = parent.querySelector('.error-tip');
+        if (!existingMsg) {
+            const tip = document.createElement('p');
+            tip.className = 'error-tip text-red-600 text-xs mt-1 font-serif';
+            tip.innerText = message;
+            parent.appendChild(tip);
+        }
+    }
+
+    // 當使用者開始輸入或選擇時，自動清除該欄位的紅框與警告
+    form.addEventListener('input', function(e) {
+        e.target.classList.remove('is-invalid');
+        let parent = e.target.parentElement;
+        let existingMsg = parent.querySelector('.error-tip');
+        if (existingMsg) existingMsg.remove();
+    });
+
+    form.addEventListener('change', function(e) {
+        e.target.classList.remove('is-invalid');
+        let parent = e.target.parentElement;
+        let existingMsg = parent.querySelector('.error-tip');
+        if (existingMsg) existingMsg.remove();
+    });
+});
+
+// 3. 彈出感謝視窗顯示
+function showThankYouModal() {
+    const modal = document.getElementById("thankYouModal");
+    const modalContent = document.getElementById("modalContent");
+    if (modal && modalContent) {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+            modal.classList.remove("opacity-0");
+            modalContent.classList.remove("scale-95");
+        }, 10);
+    }
+}
+
+// 4. 彈出感謝視窗關閉
+function closeThankYouModal() {
+    const modal = document.getElementById("thankYouModal");
+    const modalContent = document.getElementById("modalContent");
+    if (modal && modalContent) {
+        modal.classList.add("opacity-0");
+        modalContent.classList.add("scale-95");
+        setTimeout(() => {
+            modal.classList.add("hidden");
+        }, 300);
+    }
+}
+
+// 5. 🌟 專屬溫馨提示視窗（當三大必填漏掉時觸發）
+function showCustomAlert() {
+    let existingModal = document.getElementById('custom-alert-modal');
+    if (existingModal) existingModal.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'custom-alert-modal';
+    modal.style.cssText = 'position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px;';
+
+    modal.innerHTML = `
+        <div style="background: #F5EFE6; border: 1px solid #D4C5B3; padding: 30px; border-radius: 20px; max-width: 340px; width: 100%; box-shadow: 0 15px 30px rgba(0,0,0,0.3); text-align: center; font-family: serif;">
+            <h3 style="font-size: 20px; color: #7A6B5D; margin-bottom: 12px; font-weight: bold;">♥貼心小提醒♥</h3>
+            <p style="font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 20px;">
+                必填項目要填哦
+            </p>
+            <button id="close-alert-btn" style="background: #C5A880; color: white; border: none; padding: 10px 24px; border-radius: 10px; font-size: 15px; cursor: pointer; width: 100%; font-weight: bold;">我知道了</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById('close-alert-btn').onclick = function() {
+        modal.remove();
+    };
+    modal.onclick = function(e) {
+        if (e.target === modal) modal.remove();
+    };
+}
+	
+	document.addEventListener('DOMContentLoaded', function () {
+		const bookElement = document.getElementById('wedding-book');
+		if (bookElement) {
+			const pageFlip = new St.PageFlip(bookElement, {
+				width: 513,   // 單頁寬度 (px)
+				height: 770,  // 單頁高度 (px)
+				
+				
+				size: 'stretch',
+            
+				minWidth: 300,
+				maxWidth: 600,
+				minHeight: 450,
+				maxHeight: 950,
+            
+				// 🌟 建議把陰影稍微開一點（例如 0.2 或 0.3），讓套件在翻頁時有光影可以疊加渲染背面
+				maxShadowOpacity: 0.5, 
+            
+				showCover: false,      // 關閉封面模式
+				mobileScrollSupport: false
+			});
+
+			// 載入 HTML 裡的 .page 元素
+			pageFlip.loadFromHTML(document.querySelectorAll('#wedding-book .page'));
+
+			// 將實例綁定到全域變數
+			window.weddingBookFlip = pageFlip;
+		}
+	});
+
+	
+	    <!--強制手機自動播放的保險程式碼 -->
+		
+        document.addEventListener("DOMContentLoaded", function() {
+            ['calendarVideoMobile', 'calendarVideoDesktop'].forEach(function(id) {
+                var video = document.getElementById(id);
+                if (video) {
+                    video.play().catch(function(error) {
+                        document.addEventListener("touchstart", function() {
+                            video.play();
+                        }, { once: true });
+                        document.addEventListener("click", function() {
+                            video.play();
+                        }, { once: true });
+                    });
+                }
+            });
+        });
+		
+
+        // 1. 封鎖電腦滑鼠右鍵選單
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // 2. 封鎖手機長按儲存圖片或拖曳行為
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 確保只在手機尺寸（< 768px）初始化
+    if (window.innerWidth < 768) {
+        const container = document.getElementById("mobile-book-container");
+        
+        if (container) {
+            const pageFlip = new St.PageFlip(container, {
+                width: 1200,   // 配合比例基準 (2160/3240)
+                height: 1760,  // 配合比例基準
+                size: "stretch", // 自動延展填滿容器，絕不跑版
+                minWidth: 200,
+                maxWidth: 1000,
+                minHeight: 150,
+                maxHeight: 2000,
+                maxShadowOpacity: 0.8,
+                showCover: false,
+                mobileScrollSupport: false,
+                usePortrait: true, // 強制直式單頁模式
+                swipeDistance: 5,
+                flippingTime: 800  // 確保雙向翻頁動畫流暢
+                
+            });
+
+            // 你的圖片清單
+            const images = [
+                "images/40.png", "images/41.png", "images/43.png", "images/42.png",
+                "images/44.png", "images/45.png", "images/46.png", "images/47.png",
+                "images/48.png", "images/51.png"
+            ];
+
+            // 動態把圖片轉成 DOM 塞入容器
+            const pageElements = images.map(src => {
+                const div = document.createElement("div");
+                div.className = "page bg-transparent flex items-center justify-center overflow-hidden";
+                div.innerHTML = `<img src="${src}" class="w-full h-full object-cover pointer-events-none">`;
+                return div;
+            });
+
+            pageFlip.loadFromHTML(pageElements);
+
+            // 掛載到全域讓按鈕呼叫
+            window.mobileBook = pageFlip;
+        }
+    }
+});
+		
+		
+    </script>	
+			
+				<!-- 🌟 自動抓取圖片的 JavaScript 程式碼 -->
+	<script>
+			function openLightbox(element) {
+                const imgElement = element.querySelector('img');
+                if (!imgElement) return;
+
+                const modal = document.getElementById('myLightbox');
+                const lightboxImg = document.getElementById('lightboxImage');
+        
+                // 💡 檢查這個被點擊的元素有沒有設定 data-full（原圖路徑）
+                // 如果有就用原圖，沒有就抓原本的 img.src
+                const fullImageSrc = element.getAttribute('data-full') || imgElement.src;
+
+                lightboxImg.src = fullImageSrc;
+                modal.style.display = 'flex';
+            }
+
+            function closeLightbox() {
+                const modal = document.getElementById('myLightbox');
+                modal.style.display = 'none';
+            }
+	</script>
+    <!-- 🌟 專用控制 Script：包含燈箱內的圖片也支援右鍵與長按儲存 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mapImg = document.getElementById('saveable-map');
+        if (!mapImg) return;
+
+        let pressTimer = null;
+        let isLongPress = false;
+
+        // 1. 手機觸控開始（計算長按時間）
+        mapImg.addEventListener('touchstart', function(e) {
+            isLongPress = false;
+            pressTimer = setTimeout(function() {
+                isLongPress = true; // 超過 0.35 秒判定為長按（準備跳出儲存選單）
+            }, 350);
+        }, {passive: true});
+
+        // 2. 手指滑動取消長按
+        mapImg.addEventListener('touchmove', function() {
+            clearTimeout(pressTimer);
+            isLongPress = true;
+        }, {passive: true});
+
+        // 3. 手指放開
+        mapImg.addEventListener('touchend', function(e) {
+            clearTimeout(pressTimer);
+            // 如果不是長按，就執行放大燈箱
+            if (!isLongPress) {
+                e.preventDefault();
+                showCustomLightbox(mapImg.src);
+            }
+        });
+
+        // 4. 電腦滑鼠點擊（左鍵點一下放大）
+        mapImg.addEventListener('click', function(e) {
+            if (e.pointerType === 'touch' || e.detail === 0) return;
+            showCustomLightbox(mapImg.src);
+        });
+
+        // 🌟 獨立專用的滿版燈箱放大功能（並在燈箱圖片上解鎖右鍵與長按儲存）
+        function showCustomLightbox(imgSrc) {
+            let existingLightbox = document.getElementById('custom-map-lightbox');
+            if (existingLightbox) existingLightbox.remove();
+
+            // 建立全螢幕遮罩 (點擊背景空白處可以關閉燈箱)
+            const lightbox = document.createElement('div');
+            lightbox.id = 'custom-map-lightbox';
+            lightbox.style.cssText = 'position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.9); z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px;';
+
+            // 建立放大圖片
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            // 🌟 關鍵：賦予燈箱內的圖片同樣的解鎖屬性，讓它在放大時一樣可以長按或右鍵儲存！
+            img.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); -webkit-touch-callout: default !important; -webkit-user-select: auto !important; user-select: auto !important; cursor: default;';
+            
+            // 允許燈箱圖片點擊右鍵時不被攔截
+            img.addEventListener('contextmenu', function(e) {
+                e.stopPropagation();
+            });
+
+            // 點擊圖片「以外」的黑色背景處才關閉燈箱，避免點到圖片儲存時不小心關掉
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.remove();
+                }
+            });
+
+            // 加上一個小小的提示或關閉按鈕讓使用者知道怎麼退出
+            const closeBtn = document.createElement('button');
+            closeBtn.innerHTML = '✕ 關閉';
+            closeBtn.style.cssText = 'position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 14px; cursor: pointer; z-index: 1000000;';
+            closeBtn.onclick = function() {
+                lightbox.remove();
+            };
+
+            lightbox.appendChild(img);
+            lightbox.appendChild(closeBtn);
+            document.body.appendChild(lightbox);
+        }
+    });
+</script>
+<script>
+    function toggleAttendanceFields(val) {
+        const fieldPeople = document.getElementById('field-people');
+        const fieldKids = document.getElementById('field-kids');
+        const fieldDiet = document.getElementById('field-diet');
+        const fieldInvitation = document.getElementById('field-invitation');
+        const addressBox = document.getElementById('addressBox');
+        
+
+        const fieldsToToggle = [fieldPeople, fieldKids, fieldDiet, fieldInvitation, addressBox];
+
+        if (val === '不克出席，獻上祝福') {
+            // 🌟 不克出席：將欄位反灰、降低透明度、封鎖所有互動與點擊
+            fieldsToToggle.forEach(el => {
+                if (el) {
+                    el.classList.add('opacity-40', 'pointer-events-none');
+                    // 將裡面所有 input / select / textarea 設為 disabled，徹底禁止編輯與選取
+                    const inputs = el.querySelectorAll('input, select, textarea');
+                    inputs.forEach(input => {
+                        input.disabled = true;
+                        input.removeAttribute('required'); // 取消必填以免卡送出
+                    });
+                }
+            });
+        } else {
+            // 🌟 正常出席：恢復色彩、解除封鎖
+            fieldsToToggle.forEach(el => {
+                if (el) {
+                    // 如果不是地址盒，直接恢復
+                    if (el === addressBox) {
+                        const invType = document.getElementById('invitationType');
+                        if (invType && invType.value === '收藏紙本喜帖作紀念') {
+                            addressBox.classList.remove('opacity-40', 'pointer-events-none');
+                            const inputs = addressBox.querySelectorAll('textarea');
+                            inputs.forEach(input => input.disabled = false);
+                        }
+                    } else {
+                        el.classList.remove('opacity-40', 'pointer-events-none');
+                        const inputs = el.querySelectorAll('input, select, textarea');
+                        inputs.forEach(input => {
+                            input.disabled = false;
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+
+
+</script>
+
+	
+</body>
+</html>
